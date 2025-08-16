@@ -1,0 +1,13 @@
+requests
+feedparser
+beautifulsoup4
+pandas
+numpy
+datetime
+ollama
+yfinance
+selenium
+webdriver-manager
+python-dateutil
+tqdm
+holidays

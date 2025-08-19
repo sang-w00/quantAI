@@ -37,7 +37,7 @@ python -m venv venv
 source venv/bin/activate
 
 # 또는 conda 사용
-conda create -n quantai python=3.9
+conda create -n quantai python=3.12
 conda activate quantai
 ```
 
@@ -58,9 +58,7 @@ sudo systemctl start ollama
 sudo systemctl enable ollama
 
 # 모델 다운로드 (선택사항 - 더 작은 모델)
-ollama pull llama3.1:8b
-# 또는 기본 모델
-ollama pull gemma2:27b
+ollama pull gpt-oss:20b
 ```
 
 ### 5. GNews API 키 설정
@@ -77,8 +75,8 @@ def __init__(self, gnews_api_key: str = "YOUR_API_KEY_HERE"):
 ### 기본 실행
 
 ```bash
-# stock conda 환경 활성화 (선택사항)
-conda activate stock
+# conda 환경 활성화 (선택사항)
+conda activate quantai
 
 # 메인 스크립트 실행
 python stock_sentiment_main.py

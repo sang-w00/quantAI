@@ -11,3 +11,4 @@ webdriver-manager
 python-dateutil
 tqdm
 holidays
+polygon-api-client

@@ -4,7 +4,7 @@ NASDAQ 100 주식에 대한 뉴스 감성 분석을 통해 투자 인사이트�
 
 ## 🚀 주요 기능
 
-- **뉴스 수집**: GNews API를 통한 실시간 뉴스 수집
+- **뉴스 수집**: Polygon Stocks News API를 통한 실시간 뉴스 수집
 - **감성 분석**: Ollama를 활용한 AI 기반 감성 분석
 - **NASDAQ 100 지원**: 100개 주요 기업 자동 분석
 - **영업일 필터링**: 주말/공휴일 제외한 데이터 처리
@@ -61,14 +61,16 @@ sudo systemctl enable ollama
 ollama pull gpt-oss:20b
 ```
 
-### 5. GNews API 키 설정
+### 5. Polygon API 키 설정
 
-1. [GNews.io](https://gnews.io/)에서 무료 API 키 발급
-2. `news_collector.py` 파일에서 API 키 수정:
+1. [Polygon.io](https://polygon.io/)에서 API 키 발급 (무료 티어 가능, 호출 제한 있음)
+2. 환경 변수로 설정:
 
-```python
-def __init__(self, gnews_api_key: str = "YOUR_API_KEY_HERE"):
+```bash
+export POLYGON_API_KEY="YOUR_API_KEY"
 ```
+
+참고: `news_collector.py`는 환경 변수 `POLYGON_API_KEY`를 자동으로 사용합니다.
 
 ## 🚀 사용법
 
@@ -151,18 +153,11 @@ OLLAMA_MODEL = "llama3.1:8b"  # 더 빠른 모델
 OLLAMA_MODEL = "gemma2:27b"   # 더 정확한 모델
 ```
 
-### GNews API 설정
+### Polygon API 동작
 
-`news_collector.py`에서 검색 옵션 조정:
-
-```python
-params = {
-    'lang': 'en',           # 언어 설정
-    'country': 'us',        # 국가 설정
-    'max': 100,            # 최대 기사 수
-    'sortby': 'publishedAt' # 정렬 방식
-}
-```
+- 본 프로젝트는 Polygon의 Stocks News API(`/v2/reference/news`)를 사용합니다.
+- 티커 기반으로 특정 날짜(당일 00:00:00~23:59:59) 뉴스만 수집합니다.
+- 환경 변수 `POLYGON_API_KEY`가 반드시 설정되어야 합니다.
 
 ## 📊 출력 파일
 
@@ -198,11 +193,11 @@ ollama serve
 curl http://localhost:11434
 ```
 
-### 2. GNews API 오류
+### 2. Polygon API 오류
 
-- API 키 유효성 확인
-- 일일 호출 제한 확인 (무료: 100회/일)
-- 네트워크 연결 상태 확인
+- API 키 유효성 확인 (환경 변수 `POLYGON_API_KEY` 설정 여부)
+- 무료 플랜의 호출 제한 확인 (429 Too Many Requests 발생 시 대기 후 재시도)
+- 403 Forbidden 발생 시 키 권한/플랜 확인
 
 ### 3. 메모리 부족
 
@@ -293,7 +288,7 @@ batch_size = 10  # 동시 처리할 기업 수
 
 ## 🙏 감사의 말
 
-- [GNews API](https://gnews.io/) - 뉴스 데이터 제공
+- [Polygon.io](https://polygon.io/) - 뉴스 데이터 제공
 - [Ollama](https://ollama.ai/) - AI 모델 인프라
 - [NASDAQ](https://www.nasdaq.com/) - 기업 정보 제공
 

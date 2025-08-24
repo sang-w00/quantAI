@@ -79,7 +79,7 @@ logger = logging.getLogger(__name__)
 
 class StockSentimentAnalyzer:
     def __init__(self, ollama_host: str = "http://localhost:11434", model: str = "gpt-oss:20b", result_dir: str = "."):
-        self.news_collector = NewsCollector()
+        self.news_collector = NewsCollector(polygon_api_key="q96aIisakzHv_c7jRaoginkjRj8zGWu3")
         self.sentiment_analyzer = SentimentAnalyzer(ollama_host, model)
         self.nasdaq100_symbols, self.company_names = get_nasdaq100_companies()
         self.result_dir = result_dir
@@ -322,9 +322,9 @@ class StockSentimentAnalyzer:
         return summary
 
 def main():
-    # 테스트 설정 (상위 10개 기업, 1개월)
-    START_DATE = "2025-07-01"  # 시작 날짜
-    END_DATE = "2025-07-31"    # 종료 날짜 (1개월 테스트)
+    # 테스트 설정 (상위 10개 기업)
+    START_DATE = "2025-08-01"  # 시작 날짜
+    END_DATE = "2025-08-21"    # 종료 날짜 
     OUTPUT_FILENAME = "nasdaq10_sentiment_analysis.csv"
     
     # 결과 디렉토리 설정
